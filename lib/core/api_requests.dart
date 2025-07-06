@@ -1,0 +1,5 @@
+class ApiRequests {
+  ApiRequests._();
+
+  
+}
