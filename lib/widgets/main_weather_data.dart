@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MainWeatherData extends StatelessWidget {
-  const MainWeatherData({super.key});
+  String weatherType;
+  String weatherTemp;
+  MainWeatherData(
+      {super.key, required this.weatherType, required this.weatherTemp});
 
   @override
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        text: "SUNNY ",
+        text: weatherType,
         style: TextStyle(
           fontFamily: "MadimiOne",
           fontSize: 24.sp,
@@ -17,7 +20,7 @@ class MainWeatherData extends StatelessWidget {
         ),
         children: [
           TextSpan(
-            text: "26°C",
+            text: weatherTemp,
             style: TextStyle(
               fontFamily: "MadimiOne",
               fontWeight: FontWeight.normal,

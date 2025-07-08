@@ -2,14 +2,14 @@ import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class CustomSearchbar extends StatelessWidget {
-  const CustomSearchbar({super.key});
+  final Function(String)? cityChanged;
+  const CustomSearchbar({super.key, this.cityChanged});
 
   @override
   Widget build(BuildContext context) {
     Offset distance = Offset(2, 2);
-    double blur = 8;
+    double blur = 4;
 
     return Container(
       width: 328.w,
@@ -43,6 +43,11 @@ class CustomSearchbar extends StatelessWidget {
             border: InputBorder.none,
             hintStyle: TextStyle(color: Color(0XFFA1A1A1)),
           ),
+          onSubmitted: (value) {
+            if (cityChanged != null && value.trim().isNotEmpty) {
+              cityChanged!(value.trim());
+            }
+          },
         ),
       ),
     );
