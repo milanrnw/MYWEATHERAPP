@@ -11,7 +11,7 @@ class MainWeatherData extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        text: weatherType,
+        text: "${weatherType} ",
         style: TextStyle(
           fontFamily: "MadimiOne",
           fontSize: 24.sp,

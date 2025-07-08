@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,9 +22,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late WeatherMainModel weatherDataType;
-  late TempMainModel tempDataType;
-  String cityName = "City";
+  WeatherMainModel? weatherDataType;
+  TempMainModel? tempDataType;
+
+  String cityName = "Delhi";
   bool isLoading = false;
 
   Future<void> fetchWeatherType() async {
@@ -83,6 +83,15 @@ class _HomeScreenState extends State<HomeScreen> {
     final topPadding = MediaQuery.of(context).padding.top;
     SizedBox(height: topPadding);
 
+    if (isLoading || weatherDataType == null || tempDataType == null) {
+      return const Scaffold(
+        backgroundColor: Color(0XFFE7EAEF),
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Color(0XFFE7EAEF),
@@ -120,8 +129,8 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 64,
             ),
             MainWeatherData(
-              weatherType: weatherDataType.main,
-              weatherTemp: "${tempDataType.temp.toStringAsFixed(1)}°C",
+              weatherType: weatherDataType!.main,
+              weatherTemp: tempDataType!.temp.toString(),
             ),
             SizedBox(
               height: 18,
@@ -135,10 +144,11 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 children: [
                   CustomSearchbar(
-                    cityChanged: (newCity) {
+                    cityChanged: (newCity) async {
                       setState(() {
                         cityName = newCity;
                       });
+                      await fetchWeatherType();
                     },
                   ),
                   SizedBox(
